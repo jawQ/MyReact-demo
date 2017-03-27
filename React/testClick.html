@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href=""/>
+</head>
+<body>
+
+<div id="test"></div>
+
+
+<!--<img src="p1.jpg"/>-->
+<script src="js/react.js"></script>
+<script src="js/react-dom.js"></script>
+<script src="js/browser.min.js"></script>
+<script type="text/babel">
+  /*var Border=React.createClass({
+    handleClick: function () {
+      this.refs.inputSth.focus();
+    },
+    render: function () {
+      return <div>
+        <input type="text" ref="inputSth" />
+        <button onClick={this.handleClick}>点击</button>
+      </div>
+    }
+  });
+  ReactDOM.render(<Border/>,document. getElementById("test"));*/
+
+
+  //test2:
+  var MyList=React.createClass({
+    render: function () {
+      return
+      <ul>{
+        React.Children.map(this.props.children, function (child) {
+          return <li>{child}</li>
+        })
+      }
+      </ul>
+    }
+  });
+
+  ReactDOM.render(
+    <MyList>
+      <span>test1</span>
+      <span>test2</span>
+      <span>test3</span>
+      <span>test4</span>
+    </MyList>,
+    document.getElementById("test")
+  );
+</script>
+</body>
+</html>

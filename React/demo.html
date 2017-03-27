@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href=""/>
+</head>
+
+<body>
+<div id="example"></div>
+
+
+<!--<div id="forms"></div>-->
+
+<script src="js/react.js"></script>
+<script src="js/react-dom.js"></script>
+<script src="js/browser.min.js"></script>
+<script type="text/babel">
+
+
+  //测试工作: //.render---将模板转为HTML语言: 
+  /*ReactDOM.render(
+   <h1 > 成功显示 < /h1>,
+   document.getElementById("example") );
+   */
+  //No1.1:自定义组件: 
+  /*var Hellom=React.createClass({ 
+   render: function () {
+   return < h1 > Hello - {this.props.name}</h1 >
+   }
+   });
+   ReactDOM.render(
+   < Hellom name = "jawQ" > < /Hellom>,
+   document.getElementById("example") );
+   */
+  //No1.2:自定义组件-按钮: 
+  /*ar MyButton=React.createClass({ 
+   render: function () {
+   return <button>我是button0</button>
+   }
+   });
+   */
+  //2.1多个按钮组件: 
+  //practice1:登录注册表单: 
+  //组件 
+  /*var LabelName=React.createClass({ 
+   render: function () {
+   return <label> 用户名 < /label>
+   }
+   });
+   var InputName=React.createClass({
+   render: function () {
+   return <input type="text" ref="myTextInput" / >
+   }
+   });
+   var LabelPwd = React.createClass({
+   render: function () {
+   return <label> 密码 </label >
+   }
+   });
+   var InputPwd = React.createClass({
+   render: function () {
+   return <input type = "password" / >
+   }
+   });
+   var ButtonForm = React.createClass({
+   render: function () {
+   return <button onClick = {this.handleClick}>
+   click me! < /button>
+   }
+   });
+   // 定义个大组件,里面包括上面的小部件:
+   var Borders = React.createClass({
+   handleClick: function () {
+   this.refs.myTextInput.click;
+   }, render: function () {
+   return <div>
+   < LabelName / >
+   < InputName / >
+   < LabelPwd / >
+   < InputPwd / >
+   < ButtonForm / >
+   </div>
+   }
+   })
+   //将大组件一次上传到id为example的div上: ReactDOM.render(< Borders/>,
+   document.getElementById("forms"));
+   */
+  /** * * * * * practice_01 * * * * * * /
+   //创建零散组件:
+   /*var LabelName = React.createClass({
+    render: function () {
+      return <label> 用户名:</label >
+    }
+  });
+   var InputName = React.createClass({
+    render: function () {
+      return<input type = "text"/ >
+    }
+  });
+   var LabelPwd = React.createClass({
+    render: function () {
+      return <label> 用户名:</label>
+       } 
+       });
+   var InputPwd=React.createClass({
+       render: function () { 
+       return <input type="password"/>
+    }
+  });
+   var ButtonLogin = React.createClass({
+    render: function() {
+      return <button>注册</button> 
+      } 
+      });
+   var ButtonEntry=React.createClass({
+      render: function () { 
+      return <button>登录</button >
+    }
+  });
+   //将零散组件汇总为一个大组件:
+   var FormAll=React.createClass({
+  render: function () { 
+  return <div>
+  < LabelName / >
+  < InputName / >
+  < br / >
+  < LabelPwd / >
+  < InputPwd / >
+  < br / >
+  < ButtonLogin / >
+  < ButtonEntry / >
+  </div>
+  } });
+   ReactDOM.render(
+   < FormAll / >,
+   document.getElementById("example") );
+   */
+  //3.1.props:指定的属性和props的属性是一一对应的:
+  // 接收传值:
+  // 创建组件:
+  /*var LabelComponent = React.createClass({
+   render: function () {
+   return <label>{this.props.lableName}</label>
+   }
+   });
+   var InputComponent = React.createClass({
+   render: function () {
+   return <input placeholder = {this.props.tips}/>
+   }
+   });
+   var ButtonComponent=React.createClass({
+   handleClick: function () {
+   //对应自己的render的button标签
+   this.props.clickHandle();
+   //console.log("我被自己调用啦!");
+   }, render: function () {
+   //这里的onClick事件是调用自己的组件的点击方法:
+   return <button onClick={this.handleClick}>{this.props.btnName}</button> }
+   });
+   //将零散部件整合到一个大的组件:
+   var WindowComponent = React.createClass({
+   handleLoginClick: function() {
+   console.log("我是登录按钮!");
+   }, handleRegisterClick: function () {
+   console.log("我是注册按钮!");
+   }, render: function () {
+   return <div>
+   < LabelComponent lableName = "用户名:" / >
+   < InputComponent tips = "请输入用户名:" / >
+   < ButtonComponent btnName = "登录"
+   clickHandle = {this.handleLoginClick }/>
+   <ButtonComponent btnName = "注册" clickHandle =
+   {this.handleRegisterClick}/>
+   </div >
+   } });
+  // 将模板转为HTML语言:
+  ReactDOM.render(
+  < WindowComponent / >, document.getElementById("example") );
+  */
+  //4.1..this.props.children:
+  /*var MyList = React.createClass({
+    render: function () {
+      return
+      <
+      ul >
+      {React.Children.map(this.props.children, function (child) { //必须要添加return,否则不出效果 return
+        <
+        li > {child} < / li >
+
+      })
+    }
+    < / ul >
+  } }); ReactDOM.render(
+  < MyList >
+  < span > no1 < / span >
+  < span > no2 < / span >
+  < span > no3 < / span > span
+  < /MyList>, document.getElementById("example") );
+  */
+  //5.1.ref---组件不是真实的DOM节点,是存储在内存中的一种数据结构,叫虚拟DOM:
+  // 从组件中得到真实的DOM节点---插入文档:
+  /*var MyComponent=React.createClass({
+  handleClick: function () {
+  //获取时是"refs",定义时是"ref":
+  // console.log("我呗自己调用啊!");
+  //console.log(this.refs.inputTxt);
+  //获取到ref所在的组件的真实DOM
+  console.log(this.refs.inputTxt.value);
+  },render: function () {
+    return <div>
+     < input type = "text" ref = "inputTxt" / >
+      < button onClick = {this.handleClick}>点我呀 < / button >
+  < / div >
+  } });
+  ReactDOM.render(
+  < MyComponent / >,
+  document.getElementById("example") );
+  */
+  // practice1 for ref:
+  /*var YourComponent = React.createClass({
+    CLICK: function () {
+      console.log(this.refs.inputName.value);
+      console.log(this.refs.inputPwd.value);
+
+    }, render: function () {
+      return  <div>
+      <input type = "text" ref = "inputName" / >
+        < input type = "password" ref = "inputPwd" / >
+        < button onClick = {this.CLICK} > click me! < / button >
+    < / div >
+  } });
+  ReactDOM.render(
+  <YourComponent/>,
+    document.getElementById("example"));*/
+    //practice2 for ref:
+    // A Component:
+    /*var AComponent=React.createClass({
+      toCLICK: function () {
+        //console.log(this.refs.inputneirong.value);
+        //将输入框的值转换,传给main组件:
+        var TranSlateA=this.refs.inputneirong.value;
+        console.log(TranSlateA);
+        this.props.MainEvent(TranSlateA);
+      }, render: function () {
+        return <div>
+        <input type = "text" onChange={this.toCLICK} ref = "inputneirong" />
+  </div>
+  } });
+
+    //B Component:
+    var BComponent=React.createClass({
+      toCLICKB: function () {
+        this.props.MainEventB();
+      },
+      render: function () {
+        return <button onClick={this.toCLICKB}>click me!</button>
+      }
+    });
+
+  //MainComponent:
+  var MainComponent=React.createClass({
+    //用来将A组件发送来的数据-转存-到该变量,方便给B组件读取:
+    savedText:"",
+    //用来接收从A组件发送过来的数据:
+    MainClick: function (val) {
+      console.log("Main被调用啦!"+val);//若这步能获取到,证明上面发送数据成功!
+      this.savedText="传给savedText的数据为:"+val;//将获取到的值存储起来
+    },
+    //定义给BComponent组件来-读取-的数据:
+    MainClickB: function () {
+      alert(this.savedText);
+    },
+    render: function () {
+      return <div>
+                <AComponent MainEvent={this.MainClick}/>
+                <BComponent MainEventB={this.MainClickB}/>
+             </div>
+  } });
+  ReactDOM.render(
+  < MainComponent/>,
+    document.getElementById("example"));*/
+  //6.1.state---状态
+  //demo1:
+  /*var StateComponent=React.createClass({
+    //设置状态
+    getInitialState: function () {
+      return {switch:false}
+    },
+    //修改状态
+    toCLICK: function () {
+      var newSwitchs=this.state.switch;
+      newSwitchs = !newSwitchs;
+      this.setState({switch:newSwitchs});
+      console.log(this.state.switch);//只有this.setState是修改状态的方法
+    },
+      render: function () {
+        return <button onClick={this.toCLICK}>{"该开关的状态为:"+this.state.switch}</button>
+      }
+    });
+    ReactDOM.render(
+      <StateComponent/>,
+      document.getElementById("example")
+    );*/
+  //demo2:
+  /*var NewState=React.createClass({
+    getInitialState: function () {
+     return {liked:false};
+    },
+    stateEvent: function () {
+      this.setState({liked:!this.state.liked});
+    },
+      render: function () {
+        //texted的是三元运算符:
+        var texted=this.state.liked ? 'liked' : 'haven\'t liked';
+        return <p onClick={this.stateEvent}>
+        You {texted} this.Click to toggle.
+        </p>
+      }
+    });
+    ReactDOM.render(
+      <NewState />,
+      document.getElementById("example")
+    );*/
+
+
+  //practice1 for state:通过修改state来修改传过来的值,并呈现在页面:
+  //组件A:
+  /*var Acomponent=React.createClass({
+    getAMethod: function () {
+      console.log("且数据为:"+this.refs.inputName.value);
+      var postA=this.refs.inputName.value;
+      this.props.Aevent(postA);
+    },
+    render: function () {
+      return <input onChange={this.getAMethod} ref="inputName"/>
+    }
+  });
+  //组件B:
+  var Bcomponent=React.createClass({
+    getBMethod: function () {
+      this.props.Bevent();
+    },
+    render: function () {
+      return <button onClick={this.getBMethod}>this.props.Bevent();</button>
+    }
+  });
+
+  //总组件:
+  var WindowsComponent=React.createClass({
+    //1.设置状态:
+    getInitialState: function () {
+      return {liked:""}
+    },
+    //函数:
+    changeA: function (val) {
+      console.log("A组件调用啦,且数据为:"+val);
+      //2.修改状态:
+      this.setState({liked:val}, function () {
+        console.log("获取到的状态为:"+this.state.liked);
+      });
+    },
+    changeB: function () {
+      console.log("B组件调用啦");
+      //3.读取获取数据后转为状态的状态:
+      alert(this.state.liked);
+    },
+      render: function () {
+        return <div>
+          <Acomponent Aevent={this.changeA}/>
+          <Bcomponent content={this.state.liked} Bevent={this.changeB} />
+        </div>
+      }
+    });
+    ReactDOM.render(
+      <WindowsComponent />,
+      document.getElementById("example")
+    );*/
+
+  //Component的声明周期:
+  /*var AllComponent=React.createClass({
+    /!**
+     * React 为每个状态都提供了两种处理函数，
+     * will 函数在进入状态之前调用，
+     * did 函数在进入状态之后调用，
+     * 三种状态共计五种处理函数。
+     *!/
+    componentWillMount: function () {
+      console.log(this.refs.wer);
+      console.log("准备插入啦!");
+    },
+    componentDidMount: function () {
+      console.log(this.refs.wer);
+      console.log("已经插入啦!");
+    },
+    componentWillUnmount: function () {
+      console.log("出来啦!");
+    },
+    componentWillUpdate: function (props,state) {
+      console.log(this.refs.wer);
+      console.log(state);
+    },
+    //初始化状态:
+    getInitialState: function () {
+      return {count:1}
+    },
+    //传输状态:
+    getDates: function () {
+      var Dates=this.state.count;
+      //修改状态:
+      Dates++;
+      this.setState({count:Dates});
+    },
+      render: function () {
+        return <div>
+          <input ref='wer'/>
+          <button onClick={this.getDates}>click me {this.state.count}</button>
+        </div>
+
+      }
+    });
+    ReactDOM.render(
+      <AllComponent />,
+      document.getElementById("example")
+    );*/
+  //practice1 for 声明周期:
+  /*var WindowComponent=React.createClass({
+    //初始化状态:
+    getInitialState: function () {
+      return {opacityValue:0}
+    },
+    //声明周期函数:
+    componentWillMount: function (props,state) {
+      console.log(state);
+    },
+    componentDidMount: function () {
+      setInterval(function () {
+        var getDate=this.state.opacityValue;
+//        console.log(getDate);
+        getDate+=0.1;
+        if(getDate>1) {
+          getDate=0;
+        }
+        this.setState({opacityValue:getDate}, function () {
+          console.log(this.state.opacityValue);
+        });
+
+      }.bind(this),300);
+    },
+      render: function () {
+        return <div style={{opacity:this.state.opacityValue}}>
+          Hello Litecycle.{this.state.opacityValue}
+        </div>
+      }
+    });
+    ReactDOM.render(
+      <WindowComponent />,
+      document.getElementById("example")
+    );*/
+
+  //7.1.form---表单:
+  /*var NewForm=React.createClass({
+    //初始化状态:
+    geiInitialState: function () {
+      return {valueDate:""}
+    },
+    formChange: function (event) {
+      console.log(event.target.value);
+      //设置状态:
+      this.setState({valueDate:event.target.value});
+      console.log("实时数据为:"+event.target.value);
+    },
+    formCLICK: function (event) {
+      event.preventDefault();
+      //alert("成功调用!");
+      var VALUES=event.target.value;
+//      console.log("成功调用!且数据为:"+VALUES);
+      console.log("点击后,获取到状态并且状态数据为:"+this.state.valueDate);
+    },
+//当React的表单元素被添加了某些属性后,此时表单元素将交由React控制,不受使用者直接修改
+//        <input defaultValue="请输入..."/>//defaultValue则为非受控属性的值
+      render: function () {
+        return <form onSubmit={this.formCLICK}>
+        <input DefaultValue="请输入..." onChange={this.formChange}/>
+          <br />
+        <button type="submit">click me </button>
+              </form>
+      }
+    });
+    ReactDOM.render(
+      <NewForm />,
+      document.getElementById("example")
+    );*/
+
+  //practice1 for form:
+  var FormAll=React.createClass({
+    getInitialState: function () {
+      return {
+        username:"",
+        usersex:"0",
+        isAgree:"true"
+      }
+    },
+    changeForm: function (event) {
+      var getDate=event.target.value;
+      this.setState({username:getDate});
+      console.log("成功调用了onChange~!且获取到的状态为:"+getDate);
+    },
+    changeSex: function (event) {
+      this.setState({usersex:event.target.value});
+      console.log("用户选择了的性别是:"+event.target.value);
+    },
+    changeBox: function (event) {
+      this.setState({isAgree:event.target.checked});
+      console.log(event.target.checked);
+    },
+    formClick: function (event) {
+      event.preventDefault();
+      console.log(this.state);
+    },
+      render: function () {
+        return <form onSubmit={this.formClick}>
+              <label htmlFor="userName">用户名:</label>
+              <input onChange={this.changeForm} value={this.state.username}/>
+              <br />
+              <label htmlFor="userSex">选择性别:</label>
+              <select id="userSex" value={this.state.usersex} onChange={this.changeSex}>
+                <option value="0">-请选择-</option>
+                <option value="boy">男</option>
+                <option value="girl">女</option>
+              </select>
+              <br/>
+              <label htmlFor="isAgree">是否同意:</label>
+              <input type="checkbox" onChange={this.changeBox} checked={this.state.isAgree}/>
+              <br />
+              <button type="submit">注册</button>
+              </form>
+      }
+    });
+    ReactDOM.render(
+      <FormAll/>,
+      document.getElementById("example")
+    );
+</script>
+</body>
+
+</html>
